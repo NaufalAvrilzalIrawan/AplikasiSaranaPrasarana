@@ -27,7 +27,7 @@ public class ConnectSQL {
         if (koneksi == null) {
             try {
                 // URL untuk koneksi JDBC ke MySQL.
-                String url = "jdbc:mysql://localhost:3306/saranaprasarana";
+                String url = "jdbc:mysql://localhost:3306/sarpras?allowPublicKeyRetrieval=true&useSSL=false";
                 String user = "root"; // User default XAMPP
                 String password = ""; // Password default XAMPP (biasanya kosong)
 
