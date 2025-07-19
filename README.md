@@ -15,13 +15,18 @@ Aplikasi untuk mengatur peminjaman dan pelaporan sarana prasarana sebagai bentuk
 ---
 
 ### 3. Buka menu import pada phpMyAdmin lalu import file `saranaprasarana.sql`
-![Membuat Database saranaprasarana](Gambar/import.png)
+![Import data Database saranaprasarana](Gambar/import.png)
 
 ---
 
-### 4. Buka aplikasi melalui `Aplikasi Sarana Prasarana.jar` (Pastikan xampp menyala)
+### 4. Jika konfigurasi database XAMPP anda ubah maka sesuaikan username dan password pada `ConnectSQL.java`
+![Buat konfigurasi koneksi database](Gambar/koneksi.png)
+
+---
+
+### 5. Buka aplikasi melalui `Aplikasi Sarana Prasarana.jar` (Pastikan xampp menyala)
 -   **Admin**: Username dan password = `q`
 -   **Petugas**: Username dan password = `a`
 -   **User**: Username dan password = `z`
 
-![Membuat Database saranaprasarana](Gambar/AplikasiSarPra.png)
+![Buka aplikasi dan user](Gambar/AplikasiSarPra.png)
