@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  *
@@ -222,7 +223,7 @@ public class AsetForm extends javax.swing.JFrame {
                     rs.getString("kategori"),
                     rs.getString("kondisi"),
                     rs.getString("lokasi"),
-                    rs.getDate("tanggal_beli"),
+                    rs.getString("tanggal_beli"),
                     rs.getString("hari_pemeliharaan"),
                     rs.getString("status")
                 });
@@ -321,8 +322,25 @@ public class AsetForm extends javax.swing.JFrame {
         Object hariPeliharaObj = model.getValueAt(barisTerpilih, 7); // Ambil sebagai Object untuk handle null
         
         // Data dari database biasanya bertipe java.sql.Date, yang bisa langsung di-set.
-        Date tanggalBeli = (Date) model.getValueAt(barisTerpilih, 6);
-        dateTanggal.setDate(tanggalBeli);
+        // Logika untuk membaca String dari tabel dan mengubahnya menjadi Date
+        Object tanggalBeliObj = model.getValueAt(barisTerpilih, 6);
+
+        if (tanggalBeliObj != null) {
+            String tanggalBeliStr = tanggalBeliObj.toString();
+            try {
+                // Buat format yang sesuai dengan data string Anda
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date tanggalDate = sdf.parse(tanggalBeliStr);
+                dateTanggal.setDate(tanggalDate); // Set JDateChooser dengan objek Date
+            } catch (Exception e) {
+                // Jika parsing gagal, kosongkan saja date chooser
+                dateTanggal.setDate(null);
+                System.out.println("Gagal parse tanggal dari tabel: " + tanggalBeliStr);
+            }
+        } else {
+            // Jika data di tabel null, kosongkan date chooser
+            dateTanggal.setDate(null);
+        }
 
         // Isi data ke dalam JTextField
         txtId.setText(id);
@@ -330,7 +348,6 @@ public class AsetForm extends javax.swing.JFrame {
         txtNama.setText(namaAset);
         txtKategori.setText(kategori);
         txtLokasi.setText(lokasi);
-        dateTanggal.setDate(tanggalBeli);
 
         // Atur item yang terpilih di JComboBox
         cmbKondisi.setSelectedItem(kondisi);
@@ -401,13 +418,16 @@ public class AsetForm extends javax.swing.JFrame {
             pst.setString(3, kondisi);
             pst.setString(4, lokasi);
 
-            // [PERUBAHAN] Handle penyimpanan tanggal
+            // Handle penyimpanan tanggal untuk SQLite
             if (utilDate != null) {
-                // Konversi java.util.Date ke java.sql.Date
-                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                pst.setDate(5, sqlDate);
+                // 1. Format java.util.Date menjadi String "yyyy-MM-dd"
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String tanggalBeliStr = sdf.format(utilDate);
+                // 2. Simpan sebagai String, bukan Date
+                pst.setString(5, tanggalBeliStr);
             } else {
-                pst.setNull(5, java.sql.Types.DATE); // Simpan sebagai NULL jika kosong
+                // Simpan sebagai NULL jika JDateChooser kosong
+                pst.setNull(5, java.sql.Types.VARCHAR);
             }
 
             pst.setString(6, hariPelihara);
@@ -477,13 +497,13 @@ public class AsetForm extends javax.swing.JFrame {
             pst.setString(3, kondisi);
             pst.setString(4, lokasi);
 
-            // [PERUBAHAN] Handle penyimpanan tanggal
+            // Handle penyimpanan tanggal untuk SQLite
             if (utilDate != null) {
-                // Konversi java.util.Date ke java.sql.Date
-                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                pst.setDate(5, sqlDate);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String tanggalBeliStr = sdf.format(utilDate);
+                pst.setString(5, tanggalBeliStr);
             } else {
-                pst.setNull(5, java.sql.Types.DATE); // Simpan sebagai NULL jika kosong
+                pst.setNull(5, java.sql.Types.VARCHAR);
             }
 
             pst.setString(6, hariPelihara);

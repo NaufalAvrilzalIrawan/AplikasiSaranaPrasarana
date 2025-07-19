@@ -14,6 +14,9 @@ public class AplikasiSaranaPrasarana {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Panggil metode inisialisasi sebelum aplikasi berjalan
+        DatabaseInitializer.inisialisasiTabel();
+    
         LoginForm l = new LoginForm();
         l.setVisible(true);
     }
