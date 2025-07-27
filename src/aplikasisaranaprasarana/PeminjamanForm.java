@@ -267,12 +267,12 @@ public class PeminjamanForm extends javax.swing.JFrame {
             while (rs.next()) {
                 // Terdapat data
                 adaData = true;
-                
-                // Ambil data dari setiap kolom
-                int id = rs.getInt("k.id_peminjaman");
-                String nama = rs.getString("a.nama_aset");
-                String user = rs.getString("u.nama");
-                String tanggal = rs.getString("k.tanggal_pinjam");
+
+                // Ambil data menggunakan nama kolomnya saja, bukan alias tabel.
+                int id = rs.getInt("id_peminjaman");
+                String nama = rs.getString("nama_aset");
+                String user = rs.getString("nama");
+                String tanggal = rs.getString("tanggal_pinjam");
 
                 // Format data menjadi satu String yang informatif
                 String displayText = "ID: " + id + " - " + user + " = " + nama +"("+tanggal+")";

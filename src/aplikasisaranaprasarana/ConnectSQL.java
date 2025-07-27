@@ -26,21 +26,19 @@ public class ConnectSQL {
         // Periksa apakah koneksi masih null atau sudah tertutup
         if (koneksi == null) {
             try {
-                // URL untuk koneksi JDBC ke MySQL.
-                String url = "jdbc:mysql://localhost:3306/saranaprasarana?allowPublicKeyRetrieval=true&useSSL=false";
-                String user = "root"; // User default XAMPP
-                String password = ""; // Password default XAMPP (biasanya kosong)
+                // Mendaftarkan driver SQLite (opsional untuk JDBC 4.0+)
+                // Class.forName("org.sqlite.JDBC");
 
-                // Mendaftarkan driver MySQL
-                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+                // URL koneksi untuk SQLite
+                // Ini akan membuat (atau membuka) file database bernama 'sarpras.db' di folder utama proyek Anda.
+                String url = "jdbc:sqlite:sarpras.db";
 
-                // Membuat koneksi
-                koneksi = DriverManager.getConnection(url, user, password);
-                System.out.println("Koneksi ke database berhasil!");
+                // 3. Membuat koneksi. Tidak perlu username atau password.
+                koneksi = DriverManager.getConnection(url);
+                System.out.println("Koneksi ke database SQLite berhasil!");
 
             } catch (SQLException e) {
-                // Menangani error jika koneksi gagal
-                JOptionPane.showMessageDialog(null, "Gagal terkoneksi ke database: " + e.getMessage(), "Error Koneksi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Gagal terkoneksi ke database SQLite: " + e.getMessage(), "Error Koneksi", JOptionPane.ERROR_MESSAGE);
                 System.exit(0); // Keluar dari aplikasi jika database tidak bisa diakses
             }
         }
