@@ -309,14 +309,16 @@ public class PinjamForm extends javax.swing.JFrame {
         String kategori = txtKategori.getText();
         LocalDateTime mulaiA = dateTimeMulai.getDateTimePermissive();
         LocalDateTime selesaiA = dateTimeSelesai.getDateTimePermissive();
+        
+        if (mulaiA == null || selesaiA == null) {
+            JOptionPane.showMessageDialog(this, "Mohon masukkan waktu peminjaman!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Hentikan proses jika validasi gagal
+        }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String mulai = mulaiA.format(formatter);
         String selesai = selesaiA.format(formatter);
         
-        if (nama.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mohon masukkan deskripsi kerusakan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return; // Hentikan proses jika validasi gagal
-        }
 
         // Siapkan query SQL menggunakan PreparedStatement untuk keamanan
         String sql = "INSERT INTO `peminjaman`(`id_user`, `id_aset`, `tanggal_pinjam`, `tanggal_kembali`, `status`) VALUES (?,?,?,?,?)";
