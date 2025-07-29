@@ -1,5 +1,11 @@
 # APLIKASI SARANA PRASRANA 🗄️
-Aplikasi untuk mengatur peminjaman dan pelaporan sarana prasarana sebagai bentuk pemenuhan tugas mata kuliah Algoritma dan Pemrograman 2
+Aplikasi untuk mengatur peminjaman dan pelaporan sarana prasarana sebagai bentuk pemenuhan tugas mata kuliah Algoritma dan Pemrograman 2. Dengan fitur yang mencakup:
+-   **Pengelolaan Aset dan Fasilitas**
+-   **Penjadwalan perawatan**
+-   **Pelaporan kerusakan**
+-   **Peminjaman Aset dan Fasilitas**
+
+Pengelolaan Sarana & Prasarana menjadi lebih efisien dan efektif yang tentunya menghemat waktu dan tenaga.
 
 ----
 
