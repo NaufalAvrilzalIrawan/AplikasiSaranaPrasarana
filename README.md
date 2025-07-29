@@ -26,3 +26,8 @@ Pengelolaan Sarana & Prasarana menjadi lebih efisien dan efektif yang tentunya m
 -   **User**: Username dan password = `z`
 
 ![Login](Gambar/login.png)
+
+---
+
+### 4. Untuk import netbeans, buka folder `dist` dan import `ImportNetbeansAplikasiSaranaPrasarana.zip` juga libarynya pada folder `lib`
+![Jar sarana prasarana](Gambar/dist.png)
